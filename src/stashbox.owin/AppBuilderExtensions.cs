@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Owin;
-using Owin;
 using Stashbox.Infrastructure;
+using Stashbox.Owin;
 using Stashbox.Utils;
 
-namespace Stashbox.Owin
+namespace Owin
 {
     /// <summary>
     /// Represents the stashbox related <see cref="IAppBuilder"/> extension methods.

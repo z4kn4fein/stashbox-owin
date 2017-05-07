@@ -1,7 +1,7 @@
-﻿using Microsoft.Owin;
-using Stashbox.Infrastructure;
+﻿using Stashbox.Infrastructure;
+using Stashbox.Owin;
 
-namespace Stashbox.Owin
+namespace Microsoft.Owin
 {
     /// <summary>
     /// Represents the stashbox related <see cref="IOwinContext"/> extension methods.
