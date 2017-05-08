@@ -1,5 +1,5 @@
 # stashbox-owin [![Build status](https://ci.appveyor.com/api/projects/status/xnbh8todi0f6q535/branch/master?svg=true)](https://ci.appveyor.com/project/pcsajtai/stashbox-owin/branch/master) [![NuGet Version](https://buildstats.info/nuget/Stashbox.Owin)](https://www.nuget.org/packages/Stashbox.Owin/)
-OWIN integration for Stashbox which provides dependency injection for your custom OWIN middlewares.
+OWIN integration for Stashbox which provides dependency injection and scope management for your custom OWIN middlewares.
 
 ## Usage
 The registration order of the middlewares is very **important**, that order will be used to add them to the OWIN pipeline.
@@ -38,7 +38,7 @@ public class Startup
         
         app.Use<SimpleMiddleware1>();
         app.UseViaStashbox<DependencyInjectedMiddleware1>(container);
-        app.Use<SimpleMiddleware1>();
+        app.Use<SimpleMiddleware2>();
         app.Use<SimpleMiddleware3>();
         app.UseViaStashbox<DependencyInjectedMiddleware2>(container)
     }
