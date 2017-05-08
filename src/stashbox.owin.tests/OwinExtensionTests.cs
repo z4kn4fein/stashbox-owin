@@ -50,13 +50,14 @@ namespace Stashbox.Owin.Tests
 
             using (var server = TestServer.Create(app => app.UseStashbox(container)
                 .UseViaStashbox<TestMiddleware3>(container)
-                .UseViaStashbox<TestMiddleware2>(container)))
+                .UseViaStashbox<TestMiddleware2>(container)
+                .Use<TestMiddleware>()))
             {
                 using (var response = await server.HttpClient.GetAsync("/"))
-                    Assert.AreEqual("12", await response.Content.ReadAsStringAsync());
+                    Assert.AreEqual("121", await response.Content.ReadAsStringAsync());
 
                 using (var response = await server.HttpClient.GetAsync("/"))
-                    Assert.AreEqual("22", await response.Content.ReadAsStringAsync());
+                    Assert.AreEqual("221", await response.Content.ReadAsStringAsync());
             }
         }
 
