@@ -61,6 +61,19 @@ namespace Stashbox.Owin.Tests
             }
         }
 
+        [TestMethod]
+        public async Task OwinExtensionTests_Context_Injection()
+        {
+            var container = new StashboxContainer(config => config.WithUnknownTypeResolution());
+
+            using (var server = TestServer.Create(app => app.UseStashbox(container)
+                .UseViaStashbox<TestMiddleware4>(container)))
+            {
+                using (var response = await server.HttpClient.GetAsync("/"))
+                    Assert.AreEqual("true", await response.Content.ReadAsStringAsync());
+            }
+        }
+
         public class Test
         {
             public string Content { get; set; }
@@ -114,6 +127,22 @@ namespace Stashbox.Owin.Tests
             public override async Task Invoke(IOwinContext context)
             {
                 await context.Response.WriteAsync(Test1.Counter.ToString());
+                await this.Next.Invoke(context);
+            }
+        }
+
+        public class TestMiddleware4 : OwinMiddleware
+        {
+            private readonly IOwinContext ctx;
+
+            public TestMiddleware4(OwinMiddleware next, IOwinContext ctx) : base(next)
+            {
+                this.ctx = ctx;
+            }
+
+            public override async Task Invoke(IOwinContext context)
+            {
+                await context.Response.WriteAsync(this.ctx == context ? "true" : "false");
                 await this.Next.Invoke(context);
             }
         }

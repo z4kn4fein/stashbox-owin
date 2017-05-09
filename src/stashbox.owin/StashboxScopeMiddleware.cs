@@ -17,6 +17,7 @@ namespace Stashbox.Owin
         {
             using (var scope = this.container.BeginScope())
             {
+                scope.PutInstanceInScope(context);
                 context.Set(Constants.LifetimeScopeKey, scope);
                 await base.Next.Invoke(context);
             }
