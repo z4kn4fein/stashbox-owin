@@ -4,6 +4,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Owin;
+using Stashbox.Infrastructure;
 
 namespace Stashbox.Owin.Tests
 {
@@ -70,7 +71,10 @@ namespace Stashbox.Owin.Tests
                 .UseViaStashbox<TestMiddleware4>(container)))
             {
                 using (var response = await server.HttpClient.GetAsync("/"))
-                    Assert.AreEqual("true", await response.Content.ReadAsStringAsync());
+                    Assert.AreEqual("TrueTrue", await response.Content.ReadAsStringAsync());
+
+                using (var response = await server.HttpClient.GetAsync("/"))
+                    Assert.AreEqual("TrueTrue", await response.Content.ReadAsStringAsync());
             }
         }
 
@@ -134,15 +138,20 @@ namespace Stashbox.Owin.Tests
         public class TestMiddleware4 : OwinMiddleware
         {
             private readonly IOwinContext ctx;
+            private readonly IDependencyResolver resolver;
 
-            public TestMiddleware4(OwinMiddleware next, IOwinContext ctx) : base(next)
+            public TestMiddleware4(OwinMiddleware next, IOwinContext ctx, IDependencyResolver resolver) : base(next)
             {
                 this.ctx = ctx;
+                this.resolver = resolver;
             }
 
             public override async Task Invoke(IOwinContext context)
             {
-                await context.Response.WriteAsync(this.ctx == context ? "true" : "false");
+                var ctsSame = this.ctx == context;
+                var scopeSame = this.resolver == this.ctx.GetCurrentStashboxScope();
+
+                await context.Response.WriteAsync($"{ctsSame}{scopeSame}");
                 await this.Next.Invoke(context);
             }
         }
