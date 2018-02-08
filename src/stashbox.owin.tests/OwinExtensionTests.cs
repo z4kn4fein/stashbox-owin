@@ -1,10 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Owin;
-using Stashbox.Infrastructure;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Stashbox.Owin.Tests
 {

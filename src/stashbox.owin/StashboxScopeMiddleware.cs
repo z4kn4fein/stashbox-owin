@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Owin;
-using Stashbox.Infrastructure;
+﻿using Microsoft.Owin;
+using System.Threading.Tasks;
 
 namespace Stashbox.Owin
 {

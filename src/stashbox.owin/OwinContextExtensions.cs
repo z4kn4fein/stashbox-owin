@@ -1,4 +1,4 @@
-﻿using Stashbox.Infrastructure;
+﻿using Stashbox;
 using Stashbox.Owin;
 
 namespace Microsoft.Owin

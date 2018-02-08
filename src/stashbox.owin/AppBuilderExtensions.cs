@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Owin;
-using Stashbox.Infrastructure;
+﻿using Microsoft.Owin;
+using Stashbox;
 using Stashbox.Owin;
 using Stashbox.Utils;
+using System;
+using System.Linq;
 
 namespace Owin
 {
