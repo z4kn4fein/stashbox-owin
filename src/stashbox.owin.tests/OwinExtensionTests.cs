@@ -16,8 +16,8 @@ namespace Stashbox.Owin.Tests
             var container = new StashboxContainer();
             var test = new Test { Content = "test" };
             container.RegisterInstance(test);
-            container.RegisterType<TestMiddleware>();
-            container.RegisterType<TestMiddleware2>();
+            container.Register<TestMiddleware>();
+            container.Register<TestMiddleware2>();
 
             using (var server = TestServer.Create(app => app.UseStashbox(container)))
             {

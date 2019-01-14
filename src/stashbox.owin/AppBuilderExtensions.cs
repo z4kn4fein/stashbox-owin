@@ -59,7 +59,7 @@ namespace Owin
             Shield.EnsureNotNull(app, nameof(app));
             Shield.EnsureNotNull(container, nameof(container));
 
-            container.RegisterType<TMiddleware>();
+            container.Register<TMiddleware>();
             return app.Use<StashboxContainerMiddleware<TMiddleware>>();
         }
 

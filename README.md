@@ -12,8 +12,8 @@ public class Startup
         //... configure container, register dependencies
         
         //Register the middlewares that will use dependency injection
-        container.RegisterType<CustomMiddleware>();
-        container.RegisterType<CustomMiddleware2>();
+        container.Register<CustomMiddleware>();
+        container.Register<CustomMiddleware2>();
         
         app.UseStashbox(container);
         
