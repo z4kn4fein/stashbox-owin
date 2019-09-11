@@ -65,10 +65,10 @@ namespace Owin
 
         private static IAppBuilder WireRegisteredMiddlewares(this IAppBuilder app, IStashboxContainer container)
         {
-            var middlewares = container.ContainerContext.RegistrationRepository.GetAllRegistrations()
-                .Where(reg => typeof(OwinMiddleware).IsAssignableFrom(reg.ImplementationType))
-                .OrderBy(reg => reg.RegistrationNumber)
-                .Select(reg => typeof(StashboxContainerMiddleware<>).MakeGenericType(reg.ImplementationType));
+            var middlewares = container.GetRegistrationMappings()
+                .Where(reg => typeof(OwinMiddleware).IsAssignableFrom(reg.Value.ImplementationType))
+                .OrderBy(reg => reg.Value.RegistrationNumber)
+                .Select(reg => typeof(StashboxContainerMiddleware<>).MakeGenericType(reg.Value.ImplementationType));
 
             foreach (var middleware in middlewares)
                 app.Use(middleware);
