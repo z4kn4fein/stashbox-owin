@@ -67,7 +67,7 @@ namespace Owin
         {
             var middlewares = container.GetRegistrationMappings()
                 .Where(reg => typeof(OwinMiddleware).IsAssignableFrom(reg.Value.ImplementationType))
-                .OrderBy(reg => reg.Value.RegistrationNumber)
+                .OrderBy(reg => reg.Value.RegistrationId)
                 .Select(reg => typeof(StashboxContainerMiddleware<>).MakeGenericType(reg.Value.ImplementationType));
 
             foreach (var middleware in middlewares)
