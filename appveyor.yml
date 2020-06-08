@@ -18,7 +18,6 @@ assembly_info:
   assembly_informational_version: $(build_version)
 before_build:
 - nuget restore src\stashbox.owin.sln
-- nuget update src\stashbox.owin.sln -id Stashbox
 build:
   project: src\stashbox.owin.sln
   publish_nuget: true
